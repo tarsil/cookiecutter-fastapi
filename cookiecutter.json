@@ -1,0 +1,5 @@
+{
+  "project_name": "my-fastapi-app",
+  "description": "My new fastapi app",
+  "license": ["MIT", "BSD-3", "BSD-2", "GNU GPL v3.0", "Apache Software License 2.0"]
+}

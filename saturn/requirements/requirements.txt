@@ -1,0 +1,4 @@
+fastapi[all]==0.62.0
+fastapi_utils==0.2.1
+jinja2==2.11.2
+uvicorn==0.12.3
