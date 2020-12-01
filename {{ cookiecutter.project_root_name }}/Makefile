@@ -21,7 +21,7 @@ requirements-dev: ## Installs the requirements for development
 
 .PHONY: serve
 serve: ## Starts the local server
-	FASTAPI_SETTINGS_MODULE='core.configs.development.settings' python {{ project_src_name.project_name }}/serve.py
+	FASTAPI_SETTINGS_MODULE='core.configs.development.settings' python {{ cookiecutter.project_src_name }}/serve.py
 
 .PHONY: serve-special
 serve-special: ## Starts the server by passing a special settings file `FLASK_SETTINGS_FILENAME`
