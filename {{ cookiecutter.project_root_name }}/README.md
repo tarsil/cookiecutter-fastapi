@@ -1,7 +1,5 @@
 # {{ cookiecutter.description }} - {{ cookiecutter.project_name }}
 
-[![CircleCI](https://circleci.com/gh/tarsil/cookiecutter-fastapi.svg?style=shield&circle-token=d87aa2df60aa0ad7674625af40fb78bf954349af)](https://circleci.com/gh/tarsil/cookiecutter-fastapi)
-
 - The requirements are located in `requirements.txt` and you can locally run `make requirements`.
 It will install the dev requirements as well.
 - Uses cookiecutter to generate the template project

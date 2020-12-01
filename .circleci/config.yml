@@ -22,7 +22,7 @@ jobs:
           name: Run the tests
           command: |
             cd my-fastapi-app
-            make run-nose
+            make run-tests
 
 workflows:
   main:
