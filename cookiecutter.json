@@ -1,5 +1,14 @@
 {
+  "project_root_name": "my-fastapi-app",
+  "project_src_name": "src",
   "project_name": "my-fastapi-app",
+  "app_name": "my_app",
   "description": "My new fastapi app",
-  "license": ["MIT", "BSD-3", "BSD-2", "GNU GPL v3.0", "Apache Software License 2.0"]
+  "license": [
+    "MIT",
+    "BSD-3",
+    "BSD-2",
+    "GNU GPL v3.0",
+    "Apache Software License 2.0"
+  ]
 }

@@ -21,16 +21,12 @@ requirements-dev: ## Installs the requirements for development
 
 .PHONY: serve
 serve: ## Starts the local server
-	FASTAPI_SETTINGS_MODULE='src.configs.development.settings' python -m src.serve
+	FASTAPI_SETTINGS_MODULE='core.configs.development.settings' python {{ project_src_name.project_name }}/serve.py
 
 .PHONY: serve-special
 serve-special: ## Starts the server by passing a special settings file `FLASK_SETTINGS_FILENAME`
-	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python -m src.serve
+	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python {{ cookiecutter.project_src_name }}/serve.py
 
 .PHONY: run-tests
-run-tests: ## Runs the local tests
-	python -m src.tests.test_app
-
-.PHONY: run-nose
-run-nose: ## Runs the local tests with nose
-	FASTAPI_SETTINGS_MODULE='src.configs.testing.settings' nosetests --exe --with-specplugin
+run-tests: ## Runs the local tests with nose
+	FASTAPI_SETTINGS_MODULE='core.configs.testing.settings' nosetests --exe --with-specplugin

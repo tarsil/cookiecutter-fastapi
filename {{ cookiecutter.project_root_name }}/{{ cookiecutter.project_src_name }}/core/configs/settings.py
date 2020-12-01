@@ -5,6 +5,8 @@ of the file.
 """
 from fastapi_utils.api_settings import APISettings
 
+from functools import lru_cache
+
 
 class Settings(APISettings):
     """
@@ -14,8 +16,12 @@ class Settings(APISettings):
     debug: bool = False
     title: str = "Awesome API"
     email_admin: str = "foobar@example.com"
+    description: str = "{{ cookiecutter.description }}"
+    port: int = 8001
+    host: str = "0.0.0.0"
+    reload: str = False
 
-settings = Settings()
 
+@lru_cache()
 def get_settings() -> Settings:
     return Settings()

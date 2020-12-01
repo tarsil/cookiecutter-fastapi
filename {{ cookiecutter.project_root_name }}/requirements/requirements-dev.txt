@@ -1,0 +1,8 @@
+-r requirements-test.txt
+-r requirements.txt
+autopep8
+flake8
+ipdb
+ipython
+pep8
+pylint
