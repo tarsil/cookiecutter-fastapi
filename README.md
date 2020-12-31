@@ -14,12 +14,8 @@ It will install the dev requirements as well.
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Optional Requirements](#optional-requirements)
-- [Dependencies](#dependencies)
 - [How to install](#how-to-install)
-- [Development](#development)
-- [Run Locally](#run-locally)
-- [Configurations](#configurations)
-- [Run Tests](#run-tests)
+
 
 ---
 
@@ -32,3 +28,11 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 - Python 3.8 or above
 - (Optional) Virtualenv (or pyenv, venv...)
 - Cookiecutter (to install the template)
+
+## How to install
+
+ 1. [Install cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
+ 2. Run `cookiecutter https://github.com/tarsil/cookiecutter-fastapi` and follow the instructions.
+ 3. `make requirements` - Installs all the requirements needed.
+
+The remaining instructions are inside the generated README.md of the project.
