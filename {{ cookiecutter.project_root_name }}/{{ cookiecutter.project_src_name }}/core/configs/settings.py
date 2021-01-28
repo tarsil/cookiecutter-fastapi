@@ -19,7 +19,7 @@ class Settings(APISettings):
     description: str = "{{ cookiecutter.description }}"
     port: int = 8001
     host: str = "0.0.0.0"
-    reload: str = False
+    reload: bool = False
 
 
 @lru_cache()
