@@ -19,6 +19,11 @@ jobs:
             cd my-fastapi-app
             make requirements-dev
       - run:
+          name: Run the typing analyser
+          command: |
+            cd my-fastapi-app
+            make mypy
+      - run:
           name: Run the tests
           command: |
             cd my-fastapi-app

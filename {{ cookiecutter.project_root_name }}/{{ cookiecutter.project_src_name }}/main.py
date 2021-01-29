@@ -61,16 +61,20 @@ def configure_app(app: FastAPI) -> None:
     app.add_exception_handler(RequestValidationError, http422_error_handler)
 
 
-def get_settings(config: str = None) -> APISettings:
+def get_settings(config: str = None):
     """
     The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
     """
+    module = os.getenv('FASTAPI_SETTINGS_MODULE') or "core.configs.settings"
+
     try:
+        config = config or module
         configs = importlib.import_module(config)
     except (ImportError, AttributeError):
-        module = os.getenv('FASTAPI_SETTINGS_MODULE') or "core.configs.settings"
         configs = importlib.import_module(module)
-    return configs.get_settings()
+
+    _settings = getattr(configs, 'get_settings')
+    return _settings()
 
 
 def custom_openapi():
@@ -106,8 +110,8 @@ def get_application(config: str = None):
     app = FastAPI(**settings.fastapi_kwargs)
     configure_app(app)
 
-    # OPEN API SCHEMA
-    app.openapi = custom_openapi
+    # OPEN API SCHEMA - app.openapi = custom_openapi
+    setattr(app, 'openapi', custom_openapi)
     return app
 
 
