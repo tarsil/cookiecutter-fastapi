@@ -31,10 +31,6 @@ serve-special: ## Starts the server by passing a special settings file `FLASK_SE
 run-tests: ## Runs the local tests with nose
 	FASTAPI_SETTINGS_MODULE='core.configs.testing.settings' nosetests --exe --with-specplugin
 
-.PHONY: test
-test: ## Runs the local tests
-	FASTAPI_SETTINGS_MODULE='core.configs.testing.settings' pytest
-
 .PHONY: mypy
 mypy: ## Runs the typing analyser
 	mypy src/
