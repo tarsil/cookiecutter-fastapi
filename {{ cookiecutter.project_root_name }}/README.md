@@ -40,7 +40,7 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 ## Run locally
 
 - make serve` or if you wish to run with a different set of settings:
-    1. `make serve-special FLASK_SETTINGS_FILENAME=_location_of_file/file.py`
+    1. `make serve-special FASTAPI_SETTINGS_MODULE=module_file_.py`
 
 - You should be able to access `http://127.0.0.1:5001/` and test the endpoint.
 
