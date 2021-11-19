@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: '{{ cookiecutter.project_name }}'
+      POSTGRES_HOST: 'localhost'
+    expose:
+      - "5432"
+    volumes:
+      - "{{ cookiecutter.project_name }}_db_data:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:latest
+    environment:
+      REDIS_HOST: "localhost"
+      REDIS_PORT: 6379
+    volumes:
+      - "redis-data:/data"
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis-data:
+    external: true
+  {{ cookiecutter.project_name }}_db_data:
+    external: true

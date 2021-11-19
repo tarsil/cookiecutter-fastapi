@@ -39,8 +39,8 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 
 ## Run locally
 
-- make serve` or if you wish to run with a different set of settings:
-    1. `make serve-special FASTAPI_SETTINGS_MODULE=module_file_.py`
+- make run-dev` or if you wish to run with a different set of settings:
+    1. `make serve-special FASTAPI_SETTINGS_MODULE=name_of_module.file`
 
 - You should be able to access `http://127.0.0.1:5001/` and test the endpoint.
 
@@ -53,4 +53,4 @@ The project comes with pre-set of configurations located at
 
 ## Run tests
 
-- `make run-tests` - Runs all the standard tests.
+- `make test` - Runs all the standard tests.
