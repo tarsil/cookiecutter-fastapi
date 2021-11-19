@@ -1,13 +1,13 @@
-from fastapi.testclient import TestClient
 from unittest import TestCase
-import unittest
-from main import get_application
+
+from fastapi.testclient import TestClient
+from ..main import get_application
 
 
 class TestApp(TestCase):
 
     def create_app(self):
-        app = get_application('core.configs.testing.settings')
+        app = get_application('src.core.configs.testing.settings')
         return app
 
     def setUp(self):
@@ -28,7 +28,3 @@ class TestApp(TestCase):
         client = self.client.get('/api/v1/test')
 
         self.assertEqual(client.status_code, 200)
-
-
-if __name__ == '__main__':
-    unittest.main()

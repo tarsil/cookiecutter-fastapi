@@ -25,19 +25,19 @@ docker-stop: ## Stops the docker containers
 
 .PHONY: run-live
 run-live: ## Starts the local server with production settings
-	FASTAPI_SETTINGS_MODULE='core.configs.settings' python {{ cookiecutter.project_src_name }}/serve.py
+	FASTAPI_SETTINGS_MODULE='src.core.configs.settings' python -m {{ cookiecutter.project_src_name }}.serve
 
 .PHONY: run-dev
 run-dev: ## Starts the local server
-	FASTAPI_SETTINGS_MODULE='core.configs.development.settings' python {{ cookiecutter.project_src_name }}/serve.py
+	FASTAPI_SETTINGS_MODULE='src.core.configs.development.settings' python -m {{ cookiecutter.project_src_name }}.serve
 
 .PHONY: run-special
 run-special: ## Starts the server by passing a special settings file `FLASK_SETTINGS_FILENAME`
-	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python {{ cookiecutter.project_src_name }}/serve.py
+	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python -m {{ cookiecutter.project_src_name }}.serve
 
 .PHONY: test
 test: ## Runs the local tests with nose
-	FASTAPI_SETTINGS_MODULE='core.configs.testing.settings' nosetests --exe --with-specplugin
+	pytest -s $(TESTONLY) $(DB)
 
 .PHONY: mypy
 mypy: ## Runs the typing analyser

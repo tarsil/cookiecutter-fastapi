@@ -1,4 +1,4 @@
-from core.configs.settings import Settings
+from ...configs.settings import Settings
 from functools import lru_cache
 
 

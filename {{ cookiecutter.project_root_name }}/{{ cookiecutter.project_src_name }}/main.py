@@ -8,10 +8,10 @@ from fastapi_utils.api_settings import get_api_settings
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
-from core.lib.api.errors.http_error import http_error_handler
-from core.lib.api.errors.validation_error import http422_error_handler
-from core.config import ALLOWED_HOSTS
-from core.events import create_start_app_handler, create_stop_app_handler
+from .core.lib.api.errors.http_error import http_error_handler
+from .core.lib.api.errors.validation_error import http422_error_handler
+from .core.config import ALLOWED_HOSTS
+from .core.events import create_start_app_handler, create_stop_app_handler
 from pathlib import Path
 from fastapi.openapi.utils import get_openapi
 
@@ -40,7 +40,7 @@ def configure_app(app: FastAPI) -> None:
     :param FastAPI app: The FastAPI app that requires configuring.
     :return: None
     """
-    from urls import router as router_v1
+    from .urls import router as router_v1
     app.include_router(router_v1)
 
     app.add_middleware(
@@ -65,7 +65,7 @@ def get_settings(config: str = None):
     """
     The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
     """
-    module = os.getenv('FASTAPI_SETTINGS_MODULE') or "core.configs.settings"
+    module = os.getenv('FASTAPI_SETTINGS_MODULE') or "src.core.configs.settings"
 
     try:
         config = config or module
