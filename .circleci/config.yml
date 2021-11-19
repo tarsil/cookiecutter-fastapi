@@ -17,17 +17,17 @@ jobs:
           name: Install requirements from cookiecutter
           command: |
             cd my-fastapi-app
-            make requirements-dev
-      - run:
-          name: Run the typing analyser
-          command: |
-            cd my-fastapi-app
-            make mypy
+            make requirements
+      # - run:
+      #     name: Run the typing analyser
+      #     command: |
+      #       cd my-fastapi-app
+      #       make mypy
       - run:
           name: Run the tests
           command: |
             cd my-fastapi-app
-            make run-tests
+            make test
 
 workflows:
   main:

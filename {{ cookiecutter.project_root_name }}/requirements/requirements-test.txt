@@ -1,3 +1,5 @@
+nose
+spec
 pytest
 pytest-pspec
 mypy
