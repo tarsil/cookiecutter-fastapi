@@ -1,4 +1,3 @@
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from unittest import TestCase
 import unittest
@@ -25,8 +24,8 @@ class TestApp(TestCase):
         self.assertEqual(client.status_code, 200)
 
     def test_call_second_api_test(self):
-        """API endpoint test is 200 for the hello endpoint"""
-        client = self.client.get('/api/v1/{{ cookiecutter.app_name }}/test')
+        """API endpoint test is 200 for the hello test endpoint"""
+        client = self.client.get('/api/v1/test')
 
         self.assertEqual(client.status_code, 200)
 

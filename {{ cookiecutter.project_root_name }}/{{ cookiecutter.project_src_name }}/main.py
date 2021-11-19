@@ -4,12 +4,12 @@ import os
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from fastapi_utils.api_settings import APISettings, get_api_settings
+from fastapi_utils.api_settings import get_api_settings
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
-from api.errors.http_error import http_error_handler
-from api.errors.validation_error import http422_error_handler
+from core.lib.api.errors.http_error import http_error_handler
+from core.lib.api.errors.validation_error import http422_error_handler
 from core.config import ALLOWED_HOSTS
 from core.events import create_start_app_handler, create_stop_app_handler
 from pathlib import Path
