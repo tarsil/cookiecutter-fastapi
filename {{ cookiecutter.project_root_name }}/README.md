@@ -3,7 +3,7 @@
 - The requirements are located in `requirements.txt` and you can locally run `make requirements`.
 It will install the dev requirements as well.
 - Uses cookiecutter to generate the template project
-- [FastAPI](https://fastapi.tiangolo.com/) is used for the tests with [nose](https://nose.readthedocs.io/en/latest/)
+- [FastAPI](https://fastapi.tiangolo.com/) is used for the tests with [pytest](https://docs.pytest.org/en/latest/)
 
 ---
 
