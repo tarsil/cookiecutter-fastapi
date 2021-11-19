@@ -39,7 +39,7 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 
 ## Run locally
 
-- make run-dev` or if you wish to run with a different set of settings:
+- `make run-dev` or if you wish to run with a different set of settings:
     1. `make serve-special FASTAPI_SETTINGS_MODULE=name_of_module.file`
 
 - You should be able to access `http://127.0.0.1:8002/` and test the endpoint.
