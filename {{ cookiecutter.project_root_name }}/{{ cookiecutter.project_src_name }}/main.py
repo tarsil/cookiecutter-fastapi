@@ -10,7 +10,6 @@ from starlette.middleware.cors import CORSMiddleware
 
 from .core.lib.api.errors.http_error import http_error_handler
 from .core.lib.api.errors.validation_error import http422_error_handler
-from .core.config import ALLOWED_HOSTS
 from .core.events import create_start_app_handler, create_stop_app_handler
 from pathlib import Path
 from fastapi.openapi.utils import get_openapi
@@ -43,9 +42,11 @@ def configure_app(app: FastAPI) -> None:
     from .urls import router as router_v1
     app.include_router(router_v1)
 
+    settings = get_settings()
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=ALLOWED_HOSTS or ["*"],
+        allow_origins=settings.allowed_hosts or ["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

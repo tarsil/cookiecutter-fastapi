@@ -3,9 +3,19 @@ All the custom settings are placed here. The settings are therefore loaded
 trough environment variable `FASTAPI_SETTINGS_FILENAME` that should be just a location
 of the file.
 """
-from fastapi_utils.api_settings import APISettings
-
+import ast
+import binascii
+import logging
+import os
+import sys
 from functools import lru_cache
+from typing import List
+
+from databases import DatabaseURL
+from fastapi_utils.api_settings import APISettings
+from loguru import logger
+
+from ...core.logging import InterceptHandler
 
 
 class Settings(APISettings):
@@ -20,8 +30,30 @@ class Settings(APISettings):
     port: int = 8001
     host: str = "0.0.0.0"
     reload: bool = False
+    secret_key = os.getenv('SECRET_KEY', binascii.hexlify(os.urandom(24)))
+
+    # DATABASE
+    database_url: DatabaseURL = os.getenv("DB_CONNECTION", None)
+    max_connection_count: int = os.getenv("MAX_CONNECTIONS_COUNT", 10)
+    min_connection_count: int = os.getenv("MIN_CONNECTIONS_COUNT", 10)
+
+    # ALLOWED HOSTS
+    allowed_hosts: List[str] = ast.literal_eval(os.getenv('ALLOWED_HOSTS', '[]'))
 
 
 @lru_cache()
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+    configure_logger(settings)
+    return settings
+
+
+def configure_logger(settings: Settings) -> None:
+    logging_level = logging.DEBUG if settings.debug else logging.INFO
+    loggers = ("uvicorn.asgi", "uvicorn.access")
+    logging.getLogger().handlers = [InterceptHandler()]
+    for logger_name in loggers:
+        logging_logger = logging.getLogger(logger_name)
+        logging_logger.handlers = [InterceptHandler(level=logging_level)]
+
+    logger.configure(handlers=[{"sink": sys.stderr, "level": logging_level}])
