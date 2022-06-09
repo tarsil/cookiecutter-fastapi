@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/tarsil/cookiecutter-fastapi/actions/workflows/main.yml/badge.svg)
 
-- The requirements are located in `requirements.txt` and you can locally run `make requirements`.
+- The requirements are in `requirements.txt` and you can locally run `make requirements`.
   It will install the dev requirements as well.
 - Uses cookiecutter to generate the template project
 - [FastAPI](https://fastapi.tiangolo.com/) is used for the tests with [pytest](https://docs.pytest.org/en/latest/)
