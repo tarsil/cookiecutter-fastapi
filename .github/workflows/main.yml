@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - ci
+
+jobs:
+  tests:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        python-version:
+          # - "3.7"
+          - "3.8"
+          # - "3.9"
+          # - "3.10"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Python version
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: "{{ cookiecutter.project_name }}/requirements/*.txt"
+
+      - name: Install Cookiecutter
+        run: pip install cookiecutter
+
+      - name: Create a project from cookiecutter
+        run: cookiecutter . --no-input
+
+      - name: Create virtual environment
+        run: |
+          cd my-flask-app
+          python3 -m venv venv
+
+      - name: Install requirements
+        run: |
+          cd my-flask-app
+          source ./venv/bin/activate
+          make requirements
+
+      - name: Run tests
+        run: |
+          cd my-flask-app
+          source ./venv/bin/activate
+          make test

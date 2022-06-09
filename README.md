@@ -1,9 +1,9 @@
 # {{ cookiecutter.description }} - {{ cookiecutter.project_name }}
 
-[![CircleCI](https://circleci.com/gh/tarsil/cookiecutter-fastapi.svg?style=shield&circle-token=d87aa2df60aa0ad7674625af40fb78bf954349af)](https://circleci.com/gh/tarsil/cookiecutter-fastapi)
+![CI](https://github.com/tarsil/cookiecutter-fastapi/actions/workflows/main.yml/badge.svg)
 
 - The requirements are located in `requirements.txt` and you can locally run `make requirements`.
-It will install the dev requirements as well.
+  It will install the dev requirements as well.
 - Uses cookiecutter to generate the template project
 - [FastAPI](https://fastapi.tiangolo.com/) is used for the tests with [pytest](https://docs.pytest.org/en/latest/)
 
@@ -15,7 +15,6 @@ It will install the dev requirements as well.
 - [Requirements](#requirements)
 - [Optional Requirements](#optional-requirements)
 - [How to install](#how-to-install)
-
 
 ---
 
@@ -31,8 +30,8 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 
 ## How to install
 
- 1. [Install cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
- 2. Run `cookiecutter https://github.com/tarsil/cookiecutter-fastapi` and follow the instructions.
- 3. `make requirements` - Installs all the requirements needed.
+1.  [Install cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
+2.  Run `cookiecutter https://github.com/tarsil/cookiecutter-fastapi` and follow the instructions.
+3.  `make requirements` - Installs all the requirements needed.
 
 The remaining instructions are inside the generated README.md of the project.
