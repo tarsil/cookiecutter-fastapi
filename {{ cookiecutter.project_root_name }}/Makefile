@@ -13,6 +13,10 @@ clean_pyc: ## Cleans all *.pyc in the system
 
 .PHONY: requirements
 requirements: ## Installs the requirements
+	pip install -r requirements/requirements.txt
+
+.PHONY: requirements-dev
+requirements-dev: ## Installs the requirements for dev
 	pip install -r requirements/requirements-dev.txt
 
 .PHONY: docker-no-log
@@ -23,21 +27,21 @@ docker-no-logs: ##  Starts the docker compose without stdout logs
 docker-stop: ## Stops the docker containers
 	docker-compose stop
 
-.PHONY: run-live
-run-live: ## Starts the local server with production settings
-	FASTAPI_SETTINGS_MODULE='src.core.configs.settings' python -m {{ cookiecutter.project_src_name }}.serve
+.PHONY: run
+run: ## Starts the local server with production settings
+	FASTAPI_SETTINGS_MODULE='core.configs.settings' python -m src.serve
 
 .PHONY: run-dev
 run-dev: ## Starts the local server
-	FASTAPI_SETTINGS_MODULE='src.core.configs.development.settings' python -m {{ cookiecutter.project_src_name }}.serve
+	FASTAPI_SETTINGS_MODULE='core.configs.development.settings' python -m src.serve
 
-.PHONY: run-special
-run-special: ## Starts the server by passing a special settings file `FLASK_SETTINGS_FILENAME`
-	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python -m {{ cookiecutter.project_src_name }}.serve
+.PHONY: run-custom
+run-custom: ## Starts the server by passing a custom settings file `FLASK_SETTINGS_FILENAME`
+	FASTAPI_SETTINGS_MODULE=$(FASTAPI_SETTINGS_MODULE) python -m src.serve
 
 .PHONY: test
 test: ## Runs the local tests with nose
-	pytest -s $(TESTONLY) $(DB)
+	FASTAPI_SETTINGS_MODULE='core.configs.testing.settings' pytest -s $(TESTONLY) $(DB)
 
 .PHONY: mypy
 mypy: ## Runs the typing analyser

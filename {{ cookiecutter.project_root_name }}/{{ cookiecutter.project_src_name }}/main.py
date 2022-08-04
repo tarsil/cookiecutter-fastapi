@@ -1,30 +1,27 @@
+
 import importlib
-import sys
 import os
+import sys
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
+from fastapi.openapi.utils import get_openapi
 from fastapi_utils.api_settings import get_api_settings
+from loguru import logger
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
-from .core.lib.api.errors.http_error import http_error_handler
-from .core.lib.api.errors.validation_error import http422_error_handler
-from .core.events import create_start_app_handler, create_stop_app_handler
-from pathlib import Path
-from fastapi.openapi.utils import get_openapi
 
-
-def _build_path():
+def build_path():
     """
     Builds the path of the project and project root.
 
     Exports the folders on the
     """
-    SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-    os.path.basename(os.path.dirname(SITE_ROOT))
-
     Path(__file__).resolve().parent.parent
+    SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+    sys.path.append(SITE_ROOT)
     sys.path.append(os.path.join(SITE_ROOT, "apps"))
 
 
@@ -39,7 +36,11 @@ def configure_app(app: FastAPI) -> None:
     :param FastAPI app: The FastAPI app that requires configuring.
     :return: None
     """
-    from .urls import router as router_v1
+
+    from core.configs.urls import router as router_v1
+    from core.events import create_start_app_handler, create_stop_app_handler
+    from core.lib.api.errors.http_error import http_error_handler
+    from core.lib.api.errors.validation_error import http422_error_handler
     app.include_router(router_v1)
 
     settings = get_settings()
@@ -56,7 +57,7 @@ def configure_app(app: FastAPI) -> None:
         app.add_event_handler("startup", create_start_app_handler(app))
         app.add_event_handler("shutdown", create_stop_app_handler(app))
     except Exception as e:
-        pass
+        logger.exception(e)
 
     app.add_exception_handler(HTTPException, http_error_handler)
     app.add_exception_handler(RequestValidationError, http422_error_handler)
@@ -104,7 +105,7 @@ def get_application(config: str = None):
     1. Creates the scaffold app
     2. Initializes the dependencies and add them to the application context
     """
-    _build_path()
+    build_path()
     get_api_settings.cache_clear()
     settings = get_settings(config)
 

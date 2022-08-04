@@ -1,5 +1,6 @@
-from ...configs.settings import Settings as MainSettings
 from functools import lru_cache
+
+from ..settings import Settings as MainSettings
 
 
 class Settings(MainSettings):

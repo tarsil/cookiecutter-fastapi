@@ -15,7 +15,7 @@ from databases import DatabaseURL
 from fastapi_utils.api_settings import APISettings
 from loguru import logger
 
-from ...core.logging import InterceptHandler
+from ..logging import InterceptHandler
 
 
 class Settings(APISettings):

@@ -46,7 +46,7 @@ jobs:
         run: |
           cd my-fastapi-app
           source ./venv/bin/activate
-          make requirements
+          make requirements-dev
 
       - name: Run tests
         run: |
