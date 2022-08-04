@@ -1,4 +1,3 @@
-
 import importlib
 import os
 import sys
@@ -17,7 +16,7 @@ def build_path():
     """
     Builds the path of the project and project root.
 
-    Exports the folders on the
+    Exports the project modules and adds into the path.
     """
     Path(__file__).resolve().parent.parent
     SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -41,6 +40,7 @@ def configure_app(app: FastAPI) -> None:
     from core.events import create_start_app_handler, create_stop_app_handler
     from core.lib.api.errors.http_error import http_error_handler
     from core.lib.api.errors.validation_error import http422_error_handler
+
     app.include_router(router_v1)
 
     settings = get_settings()
@@ -67,7 +67,7 @@ def get_settings(config: str = None):
     """
     The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
     """
-    module = os.getenv('FASTAPI_SETTINGS_MODULE') or "src.core.configs.settings"
+    module = os.getenv("FASTAPI_SETTINGS_MODULE") or "src.core.configs.settings"
 
     try:
         config = config or module
@@ -75,7 +75,7 @@ def get_settings(config: str = None):
     except (ImportError, AttributeError):
         configs = importlib.import_module(module)
 
-    _settings = getattr(configs, 'get_settings')
+    _settings = getattr(configs, "get_settings")
     return _settings()
 
 
@@ -113,7 +113,7 @@ def get_application(config: str = None):
     configure_app(app)
 
     # OPEN API SCHEMA - app.openapi = custom_openapi
-    setattr(app, 'openapi', custom_openapi)
+    setattr(app, "openapi", custom_openapi)
     return app
 
 
