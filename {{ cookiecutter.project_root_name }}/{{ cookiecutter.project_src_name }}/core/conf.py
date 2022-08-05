@@ -1,8 +1,11 @@
 import importlib
 import os
 
+from fastapi_utils.api_settings import APISettings
+from loguru import logger
 
-def get_settings(config: str = None):
+
+def get_settings(config: str = None) -> APISettings:
     """
     The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
     """
@@ -14,7 +17,12 @@ def get_settings(config: str = None):
     except (ImportError, AttributeError):
         configs = importlib.import_module(module)
 
-    settings = getattr(configs, "get_settings")
+    settings = getattr(configs, "get_settings", None)
+    if not settings:
+        logger.warning(f"get_settings() not found in {module}.")
+        logger.warning("Default to base APISettings.")
+        settings = APISettings
+
     return settings()
 
 
