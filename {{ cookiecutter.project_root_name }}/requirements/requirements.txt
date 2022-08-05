@@ -2,7 +2,7 @@ aerich==0.6.3
 asyncpg==0.26.0
 databases==0.5.5
 fastapi[all]==0.79.0
-tortoise-orm[asyncpg]
+tortoise-orm[asyncpg]==0.19.2
 fastapi_utils==0.2.1
 loguru==0.6.0
 passlib==1.7.4
