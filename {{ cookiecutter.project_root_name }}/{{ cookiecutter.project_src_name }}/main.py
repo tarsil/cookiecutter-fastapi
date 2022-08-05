@@ -67,7 +67,7 @@ def get_settings(config: str = None):
     """
     The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
     """
-    module = os.getenv("FASTAPI_SETTINGS_MODULE") or "src.core.configs.settings"
+    module = os.getenv("FASTAPI_SETTINGS_MODULE") or ".core.configs.settings"
 
     try:
         config = config or module
