@@ -1,4 +1,3 @@
-import importlib
 import os
 import sys
 from pathlib import Path
@@ -6,7 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.openapi.utils import get_openapi
-from fastapi_utils.api_settings import get_api_settings
+from fastapi_utils.api_settings import APISettings, get_api_settings
 from loguru import logger
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
@@ -16,7 +15,7 @@ def build_path():
     """
     Builds the path of the project and project root.
 
-    Exports the project modules and adds into the path.
+    Exports the folders on the
     """
     Path(__file__).resolve().parent.parent
     SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -24,7 +23,7 @@ def build_path():
     sys.path.append(os.path.join(SITE_ROOT, "apps"))
 
 
-def configure_app(app: FastAPI) -> None:
+def configure_app(app: FastAPI, settings: APISettings) -> None:
     """
     The configuration is read from the filename in the "FASTAPI_SETTINGS_MODULE"
     environment variable (if it exists) and some other important settings.
@@ -42,9 +41,6 @@ def configure_app(app: FastAPI) -> None:
     from core.lib.api.errors.validation_error import http422_error_handler
 
     app.include_router(router_v1)
-
-    settings = get_settings()
-
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_hosts or ["*"],
@@ -67,16 +63,9 @@ def get_settings(config: str = None):
     """
     The `config` is a module path in the format of `core.configs.settings` or else it will load the default.
     """
-    module = os.getenv("FASTAPI_SETTINGS_MODULE") or "core.configs.settings"
+    from core.conf import settings
 
-    try:
-        config = config or module
-        configs = importlib.import_module(config)
-    except (ImportError, AttributeError):
-        configs = importlib.import_module(module)
-
-    _settings = getattr(configs, "get_settings")
-    return _settings()
+    return settings
 
 
 def custom_openapi():
@@ -114,7 +103,7 @@ def get_application(config: str = None):
     settings = get_settings(config)
 
     app = FastAPI(**settings.fastapi_kwargs)
-    configure_app(app)
+    configure_app(app, settings)
 
     # OPEN API SCHEMA - app.openapi = custom_openapi
     setattr(app, "openapi", custom_openapi)
