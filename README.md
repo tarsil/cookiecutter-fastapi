@@ -1,4 +1,7 @@
-# {{ cookiecutter.description }} - {{ cookiecutter.project_name }}
+# FastAPI Cookiecutter
+
+Comes with some pre-built routes, paths, apps and [Tortoise ORM](https://tortoise.github.io/_modules/tortoise/fields/data.html)
+integrated.
 
 ![CI](https://github.com/tarsil/cookiecutter-fastapi/actions/workflows/main.yml/badge.svg)
 
@@ -11,10 +14,11 @@
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Requirements](#requirements)
-- [Optional Requirements](#optional-requirements)
-- [How to install](#how-to-install)
+- [FastAPI Cookiecutter](#fastapi-cookiecutter)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Requirements](#requirements)
+  - [How to install](#how-to-install)
 
 ---
 

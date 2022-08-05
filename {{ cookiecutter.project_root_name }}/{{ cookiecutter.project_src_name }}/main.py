@@ -65,9 +65,9 @@ def configure_app(app: FastAPI) -> None:
 
 def get_settings(config: str = None):
     """
-    The `config` is a module path in teh format of `core.configs.settings` or else it will load the default.
+    The `config` is a module path in the format of `core.configs.settings` or else it will load the default.
     """
-    module = os.getenv("FASTAPI_SETTINGS_MODULE") or ".core.configs.settings"
+    module = os.getenv("FASTAPI_SETTINGS_MODULE") or "core.configs.settings"
 
     try:
         config = config or module
@@ -99,11 +99,15 @@ def custom_openapi():
 
 def get_application(config: str = None):
     """
-    Main entry-point of the service.
-    Initializes the service and all the dependencies
+    Main entry-point of the application.
+    Initializes the service and all of the dependencies.
 
-    1. Creates the scaffold app
-    2. Initializes the dependencies and add them to the application context
+    1. Builds the project path. Inspired by the way Django manages the settings
+    from the relative path.
+    2. Clears the settings cache.
+    3. Loads the settings sent to the project via file or module string location.
+    4. Creates the FastAPI app object.
+    5. Initializes the dependencies and add them to the application context.
     """
     build_path()
     get_api_settings.cache_clear()
