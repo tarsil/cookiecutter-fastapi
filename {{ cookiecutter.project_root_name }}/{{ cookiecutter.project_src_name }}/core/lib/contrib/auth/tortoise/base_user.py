@@ -1,11 +1,9 @@
 from multiprocessing.dummy import Manager
 
-from django.contrib.auth.models import User
 from tortoise import fields
 from tortoise.models import Model
 
 from ..hashers import check_password, is_password_usable, make_password
-from .manager import UserManager
 
 
 class PermissionsMixin(Model):
@@ -20,16 +18,20 @@ class PermissionsMixin(Model):
         abstract = True
 
 
-class AbstractUserModel(PermissionsMixin, Model):
+class AbstractUser(PermissionsMixin, Model):
     """
     Base model used for a custom model of an application.
     contains
     """
 
+    first_name = fields.CharField(description="First name", max_length=150, unique=True)
+    last_name_name = fields.CharField(
+        description="Last name", max_length=150, unique=True
+    )
     username = fields.CharField(description="Username", max_length=150, unique=True)
-    email = fields.CharField(description="Email address")
+    email = fields.CharField(description="Email address", max_length=120)
     password = fields.CharField(description="Password", max_length=128)
-    last_login = fields.DateTimeField(description="Last login", null=True)
+    last_login = fields.DatetimeField(description="Last login", null=True)
     is_staff = fields.BooleanField(default=False)
     is_active = fields.BooleanField(default=True)
 
@@ -38,7 +40,6 @@ class AbstractUserModel(PermissionsMixin, Model):
     _password = None
 
     class Meta:
-        manager = UserManager()
         abstract = True
 
     async def save(self, *args, **kwargs):
@@ -84,3 +85,33 @@ class AbstractUserModel(PermissionsMixin, Model):
         Return False if set_unusable_password() has been called for this user.
         """
         return is_password_usable(self.password)
+
+    @classmethod
+    def _create_user(cls, username, email, password, **extra_fields):
+        """
+        Create and save a user with the given username, email, and password.
+        """
+        if not username:
+            raise ValueError("The given username must be set")
+        user = cls(username=username, email=email, **extra_fields)
+        user.password = make_password(password)
+        user.save()
+        return user
+
+    @classmethod
+    def create_user(cls, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        return cls._create_user(username, email, password, **extra_fields)
+
+    @classmethod
+    def create_superuser(cls, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
+        return cls._create_user(username, email, password, **extra_fields)

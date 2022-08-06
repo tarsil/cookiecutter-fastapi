@@ -11,7 +11,6 @@ import sys
 from functools import lru_cache
 from typing import List
 
-from databases import DatabaseURL
 from fastapi_utils.api_settings import APISettings
 from loguru import logger
 
@@ -22,6 +21,7 @@ class Settings(APISettings):
     """
     Base settings for the FastApi app
     """
+
     environment: str = "production"
     debug: bool = False
     title: str = "Awesome API"
@@ -30,15 +30,15 @@ class Settings(APISettings):
     port: int = 8001
     host: str = "0.0.0.0"
     reload: bool = False
-    secret_key = os.getenv('SECRET_KEY', binascii.hexlify(os.urandom(24)))
+    secret_key = os.getenv("SECRET_KEY", binascii.hexlify(os.urandom(24)))
 
     # DATABASE
-    database_url: DatabaseURL = os.getenv("DB_CONNECTION", None)
+    database_url: str = os.getenv("DB_CONNECTION", None)
     max_connection_count: int = os.getenv("MAX_CONNECTIONS_COUNT", 10)
     min_connection_count: int = os.getenv("MIN_CONNECTIONS_COUNT", 10)
 
     # ALLOWED HOSTS
-    allowed_hosts: List[str] = ast.literal_eval(os.getenv('ALLOWED_HOSTS', '[]'))
+    allowed_hosts: List[str] = ast.literal_eval(os.getenv("ALLOWED_HOSTS", "[]"))
 
 
 @lru_cache()
