@@ -40,7 +40,8 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 
  1. Install cookiecutter. Instructions [here](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
  2. Run `cookiecutter https://github.com/tarsil/cookiecutter-fastapi` and follow the instructions.
- 3. `make requirements` - Installs all the requirements needed.
+ 3. `make requirements-dev` - Installs all the requirements needed for dev.
+ 4. `make requirements` (No need if 3. run) - Installs all the requirements base.
 
 ## Run locally
 
