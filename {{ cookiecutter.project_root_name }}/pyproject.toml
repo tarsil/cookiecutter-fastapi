@@ -1,0 +1,4 @@
+[tool.aerich]
+tortoise_orm = "{{ cookiecutter.project_src_name }}.core.configs.databases.settings.DATABASES"
+location = "./{{ cookiecutter.project_src_name }}/migrations"
+src_folder = "./."

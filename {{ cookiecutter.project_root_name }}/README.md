@@ -5,19 +5,24 @@ It will install the dev requirements as well.
 - Uses cookiecutter to generate the template project
 - [FastAPI](https://fastapi.tiangolo.com/) is used for the tests with [pytest](https://docs.pytest.org/en/latest/)
 
+Comes with some pre-built routes, paths, apps and [Tortoise ORM](https://tortoise.github.io/_modules/tortoise/fields/data.html)
+integrated.
+
+This project also bring a default AbstractUser (like) django where
+it allows the creation of a superuser and a normal user like django as well.
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Requirements](#requirements)
-- [Optional Requirements](#optional-requirements)
-- [Dependencies](#dependencies)
-- [How to install](#how-to-install)
-- [Development](#development)
-- [Run Locally](#run-locally)
-- [Configurations](#configurations)
-- [Run Tests](#run-tests)
+- [{{ cookiecutter.description }} - {{ cookiecutter.project_name }}](#-cookiecutterdescription-----cookiecutterproject_name-)
+    - [it allows the creation of a superuser and a normal user like django as well.](#it-allows-the-creation-of-a-superuser-and-a-normal-user-like-django-as-well)
+    - [Table of Contents](#table-of-contents)
+    - [Overview](#overview)
+    - [Requirements](#requirements)
+    - [How to install](#how-to-install)
+    - [Run locally](#run-locally)
+    - [Configurations](#configurations)
+    - [Run tests](#run-tests)
 
 ---
 
@@ -50,6 +55,10 @@ The project comes with pre-set of configurations located at
 `{{ cookiecutter.project_root_name }}/{{ cookiecutter.project_src_name }}/core/configs/`.
 
  1. `settings.py` is the main default settings config.
+ 2. `make migrate`. Runs the current migrations inside the `migration` folder
+ 3. `make` to list all the available commands for the project.
+
+For more info about the migrations and the tool used [aerich](https://github.com/tortoise/aerich).
 
 ## Run tests
 

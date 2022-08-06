@@ -13,6 +13,12 @@ if __name__ == "__main__":
         os.environ["FASTAPI_SETTINGS_MODULE"] = "core.configs.settings"
 
     settings = get_settings()
-    uvicorn.run('main:app', debug=os.getenv('DEBUG', settings.debug), port=os.getenv('PORT', settings.port),
-                host=os.getenv('HOST', settings.host), reload=settings.reload, lifespan="off",
-                log_level="info")
+    uvicorn.run(
+        "main:app",
+        debug=os.getenv("DEBUG", settings.debug),
+        port=os.getenv("PORT", settings.port),
+        host=os.getenv("HOST", settings.host),
+        reload=settings.reload,
+        lifespan="on",
+        log_level="info",
+    )

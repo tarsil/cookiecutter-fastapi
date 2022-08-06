@@ -15,6 +15,22 @@ clean_pyc: ## Cleans all *.pyc in the system
 requirements: ## Installs the requirements
 	pip install -r requirements/requirements.txt
 
+.PHONY: migrate
+migrate: ## Runs the all the migrations
+	aerich migrate
+
+.PHONY: migrate-specific
+migrate-specific: ## Migrates to specific file
+	aerich migrate --name $(FILE)
+
+.PHONY: upgrade
+upgrade: ## Upgrade to latest version
+	aerich upgrade
+
+.PHONY: downgrade
+downgrade: ## Downgrade to specified version. E.g.: aerich downgrade -v VERSION=1
+	aerich downgrade -v $(VERSION)
+
 .PHONY: requirements-dev
 requirements-dev: ## Installs the requirements for dev
 	pip install -r requirements/requirements-dev.txt

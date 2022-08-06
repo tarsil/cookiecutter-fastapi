@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+from typing import Callable
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
@@ -9,6 +10,7 @@ from fastapi_utils.api_settings import APISettings, get_api_settings
 from loguru import logger
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
+from tortoise import run_async
 
 
 def build_path():
@@ -19,8 +21,10 @@ def build_path():
     """
     Path(__file__).resolve().parent.parent
     SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-    sys.path.append(SITE_ROOT)
-    sys.path.append(os.path.join(SITE_ROOT, "apps"))
+
+    if not SITE_ROOT in sys.path:
+        sys.path.append(SITE_ROOT)
+        sys.path.append(os.path.join(SITE_ROOT, "apps"))
 
 
 def configure_app(app: FastAPI, settings: APISettings) -> None:
@@ -48,7 +52,6 @@ def configure_app(app: FastAPI, settings: APISettings) -> None:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
     try:
         app.add_event_handler("startup", create_start_app_handler(app))
         app.add_event_handler("shutdown", create_stop_app_handler(app))

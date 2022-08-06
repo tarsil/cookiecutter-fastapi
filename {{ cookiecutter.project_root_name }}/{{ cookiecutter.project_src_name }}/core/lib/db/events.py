@@ -1,17 +1,18 @@
-import asyncpg
 from fastapi import FastAPI
 from loguru import logger
+from tortoise import Tortoise
+from tortoise.contrib.fastapi import register_tortoise
 
-from ...conf import settings
+from ...configs.databases.config import TORTOISE_ORM
 
 
 async def connect_to_db(app: FastAPI) -> None:
-    logger.info("Connecting to {}", repr(settings.database_url))
-
-    app.state.pool = await asyncpg.create_pool(
-        str(settings.database_url),
-        min_size=settings.min_connection_count,
-        max_size=settings.max_connection_count,
+    logger.info("Connecting to database")
+    register_tortoise(
+        app=app,
+        config=TORTOISE_ORM,
+        generate_schemas=True,
+        add_exception_handlers=True,
     )
 
     logger.info("Connection established")
@@ -20,6 +21,6 @@ async def connect_to_db(app: FastAPI) -> None:
 async def close_db_connection(app: FastAPI) -> None:
     logger.info("Closing connection to database")
 
-    await app.state.pool.close()
+    await Tortoise.close_connections()
 
     logger.info("Connection closed")
