@@ -16,9 +16,6 @@ class AutoIncrementIntMixin(Model):
         abstract = True
 
 
-from aerich.models import Aerich
-
-
 class AutoIncrementBigIntMixin(Model):
     """
     Auto increment for big integers.

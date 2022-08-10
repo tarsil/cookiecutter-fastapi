@@ -4,25 +4,18 @@ These hashers and the way it was implemented was heavily
 based on the clean design done by Django but we used
 """
 
-import base64
 import functools
 import hashlib
 import math
 import secrets
 import warnings
 
-from passlib.context import CryptContext
-
 from core.conf import settings
+from passlib.context import CryptContext
 
 from ..exceptions import ImproperlyConfigured
 from ..utils.module_loading import import_string
-from .constants import (
-    RANDOM_STRING_CHARS,
-    UNUSABLE_PASSWORD_PREFIX,
-    UNUSABLE_PASSWORD_SUFFIX_LENGTH,
-)
-from .crypto import pbkdf2
+from .constants import RANDOM_STRING_CHARS, UNUSABLE_PASSWORD_PREFIX, UNUSABLE_PASSWORD_SUFFIX_LENGTH
 
 
 def is_password_usable(encoded):
@@ -48,7 +41,6 @@ def check_password(password, encoded, setter=None, preferred="default"):
     try:
         hasher_handler = identify_hasher(encoded)
     except ValueError:
-        # encoded is gibberish or uses a hasher that's no longer installed.
         return False
 
     hasher_changed = hasher_handler.algorithm != preferred.algorithm
