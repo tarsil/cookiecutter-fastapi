@@ -1,4 +1,4 @@
-from core.lib.contrib.auth.tortoise.base_user import AbstractUser
+from core.lib._contrib.auth.tortoise.base_user import AbstractUser
 
 
 class User(AbstractUser):

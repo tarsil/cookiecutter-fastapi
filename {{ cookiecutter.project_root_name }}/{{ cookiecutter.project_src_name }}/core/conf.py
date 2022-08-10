@@ -1,8 +1,8 @@
 import importlib
 import os
 
-from fastapi_utils.api_settings import APISettings
 from loguru import logger
+from python_web_extras.fastapi.api_settings import APISettings
 
 
 def get_settings(config: str = None) -> APISettings:

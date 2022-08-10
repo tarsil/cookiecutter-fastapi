@@ -1,16 +1,17 @@
 import os
 import sys
 from pathlib import Path
-from typing import Callable
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.openapi.utils import get_openapi
-from fastapi_utils.api_settings import APISettings, get_api_settings
+from fastapi_utils.api_settings import get_api_settings
 from loguru import logger
+from python_web_extras.fastapi.api_settings import APISettings
+from python_web_extras.fastapi.errors.http_error import http_error_handler
+from python_web_extras.fastapi.errors.validation_error import http422_error_handler
 from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
-from tortoise import run_async
 
 
 def build_path():
@@ -41,8 +42,6 @@ def configure_app(app: FastAPI, settings: APISettings) -> None:
 
     from core.configs.urls import router as router_v1
     from core.events import create_start_app_handler, create_stop_app_handler
-    from core.lib.api.errors.http_error import http_error_handler
-    from core.lib.api.errors.validation_error import http422_error_handler
 
     app.include_router(router_v1)
     app.add_middleware(

@@ -13,8 +13,7 @@ from typing import List
 
 from fastapi_utils.api_settings import APISettings
 from loguru import logger
-
-from ..logging import InterceptHandler
+from python_web_extras.fastapi.logging import InterceptHandler
 
 
 class Settings(APISettings):

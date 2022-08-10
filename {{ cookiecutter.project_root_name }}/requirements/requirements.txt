@@ -8,6 +8,7 @@ loguru==0.6.0
 passlib==1.7.4
 postgres==4.0.0
 pytz==2022.1
+python_web_extras
 redis==4.0.2
 requests==2.28.1
 uvicorn>=0.12.0
