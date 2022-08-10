@@ -11,8 +11,8 @@ import sys
 from functools import lru_cache
 from typing import List
 
-from fastapi_utils.api_settings import APISettings
 from loguru import logger
+from python_web_extras.fastapi.api_settings import APISettings
 from python_web_extras.fastapi.logging import InterceptHandler
 
 
