@@ -1,4 +1,4 @@
-from python_web_extras.fastapi.models.import User as AbstractUser
+from python_web_extras.fastapi.models import User as AbstractUser
 
 
 class User(AbstractUser):
