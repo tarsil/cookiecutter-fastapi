@@ -34,6 +34,7 @@ This is a simple boilerplate that helps spinning up fastapi apps for your own us
 
 - Python 3.8 or above
 - (Optional) Virtualenv (or pyenv, venv...)
+- [Python Web Extras](https://github.com/tarsil/python-web-extras)
 - Cookiecutter (to install the template)
 
 ## How to install
