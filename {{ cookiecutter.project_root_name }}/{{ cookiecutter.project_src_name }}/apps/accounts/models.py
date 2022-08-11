@@ -1,4 +1,4 @@
-from core.lib._contrib.auth.tortoise.base_user import AbstractUser
+from python_web_extras.fastapi.models import User as AbstractUser
 
 
 class User(AbstractUser):
